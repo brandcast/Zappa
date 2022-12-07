@@ -2225,7 +2225,8 @@ class ZappaCLI:
         # Related:  https://github.com/Miserlou/Zappa/pull/664
         #           https://github.com/Miserlou/Zappa/issues/678
         #           And various others from Slack.
-        self.lambda_name = slugify.slugify(self.project_name + "-" + self.api_stage)
+        default_lambda_name = slugify.slugify(self.project_name + "-" + self.api_stage)
+        self.lambda_name = self.stage_config.get('lambda_name', default_lambda_name)
 
         # Load stage-specific settings
         self.s3_bucket_name = self.stage_config.get(
